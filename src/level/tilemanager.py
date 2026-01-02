@@ -22,13 +22,15 @@ def get_tile_surf(tile: list):
         pygame.draw.rect(tile_surf, tile[0][i], sp)
     return tile_surf
 
-def colliding(tilemap, grid: list, obj: pygame.Rect, get_index):
+def colliding(self, tilemap, grid: list, obj: pygame.Rect, get_index):
     tile_pos = set()
     for i in range(4):
         corners = [obj.topleft, obj.topright, obj.bottomleft, obj.bottomright]
         coord = list(corners[i])
         tile_pos.add(get_index(coord[0], coord[1]))
-    for tile in tile_pos:
-        tile = 
+    for tile_index in tile_pos:
+        tile = tilemap[grid[tile_index]]
+        tile = self.colliding_with_tile(tile, obj)
+    return False
 def colliding_with_tile(tile, obj: pygame.Rect):
-    pass
+    
