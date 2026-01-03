@@ -1,12 +1,14 @@
 import pygame
 from player import Player
 from level.level import Level
+from .camera import Camera
 from utils.keys import getkeys
 from sys import exit
 
 def main(screen, clock):
     player = Player(400, 300, screen)
     level = Level(0, screen)
+    camera = Camera()
     dt = 1 / 60
     while True:
         screen.fill((173, 216, 230))
@@ -19,12 +21,11 @@ def main(screen, clock):
             elif event.type == pygame.VIDEORESIZE:
                 screen_w, screen_h = screen.get_size()
                 screen = pygame.display.set_mode((screen_w, screen_h), pygame.RESIZABLE)
-                level.resize(screen_w, screen_h)
-                player.resize(screen_w, screen_h)
                 player.screen = screen
 
         player.update(keys, level, dt)
-        player.draw()
+        # camera.update()
+        player.draw(camera.x, camera.y)
         level.draw()
 
         pygame.display.flip()
